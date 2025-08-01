@@ -32,7 +32,11 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
+<<<<<<< HEAD
         'app_name': "Deloitte Vulnerable Banking API Documentation",
+=======
+        'app_name': "Deloitte Vulnerable BankIng API Documentation",
+>>>>>>> bbe1852392e7a3eb23de8862d26627e8a5f29efc
         'validatorUrl': None
     }
 )
