@@ -4,7 +4,7 @@ A deliberately vulnerable web application for practicing application security te
 
 ⚠️ **WARNING: This application is intentionally vulnerable and should only be used for educational purposes in isolated environments.**
 
-![image](https://github.com/user-attachments/assets/7fda0106-b083-48d6-8629-f7ee3c8eb73d)
+<!-- ![image](https://github.com/user-attachments/assets/7fda0106-b083-48d6-8629-f7ee3c8eb73d) -->
 
 ## Overview
 
@@ -29,7 +29,7 @@ This project is a simple banking application with multiple security vulnerabilit
 - 📱 Bill Payments System
 - 🤖 AI Customer Support Agent (Real LLM with DeepSeek API / Mock Mode)
 
-![image](https://github.com/user-attachments/assets/f8d14d62-d71e-41f3-85c7-133553a75989)
+<!-- ![image](https://github.com/user-attachments/assets/f8d14d62-d71e-41f3-85c7-133553a75989) -->
 
 ### Implemented Vulnerabilities
 
@@ -127,7 +127,7 @@ This project is a simple banking application with multiple security vulnerabilit
 #### Using Docker Compose (Easiest)
 1. Clone the repository:
 ```bash
-git clone https://github.com/Commando-X/Deloitte-Vulnerable-Bank.git
+git clone https://github.com/sefiamor/Deloitte-Vulnerable-Bank.git
 cd Deloitte-Vulnerable-Bank 
 ```
 
@@ -141,7 +141,7 @@ The application will be available at `http://localhost:5000`
 #### Using Docker Only
 1. Clone the repository:
 ```bash
-git clone https://github.com/Commando-X/Deloitte-Vulnerable-Bank.git
+git clone https://github.com/sefiamor/Deloitte-Vulnerable-Bank.git
 cd Deloitte-Vulnerable-Bank
 ```
 
@@ -166,7 +166,7 @@ docker run -p 5000:5000 Deloitte-Vulnerable-Bank
 #### Steps
 1. Clone the repository:
 ```bash
-git clone https://github.com/Commando-X/Deloitte-Vulnerable-Bank.git
+git clone https://github.com/sefiamor/Deloitte-Vulnerable-Bank.git
 cd Deloitte-Vulnerable-Bank
 ```
 
@@ -409,7 +409,7 @@ Contributions are welcome! Feel free to:
 - Fix bugs (that aren't intentional vulnerabilities)
 
 
-## 📝 Blog Write-Up
+<!-- ## 📝 Blog Write-Up -->
 
 <!-- A detailed walkthrough about this lab and my findings here:  
 👇 Read the Blog By [DghostNinja](https://github.com/DghostNinja)
