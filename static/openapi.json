@@ -401,7 +401,7 @@
         }
       }
     },
-    "/sup3r_s3cr3t_admin": {
+    "/super_secret_admin": {
       "get": {
         "tags": ["admin"],
         "summary": "Admin panel",
