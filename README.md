@@ -1,4 +1,4 @@
-# Vulnerable Bank Application 🏦
+# Deloitte Vulnerable Bank Application 🏦
 
 A deliberately vulnerable web application for practicing application security testing of Web, APIs and LLMs, secure code review and implementing security in CI/CD pipelines.
 
@@ -127,8 +127,8 @@ This project is a simple banking application with multiple security vulnerabilit
 #### Using Docker Compose (Easiest)
 1. Clone the repository:
 ```bash
-git clone https://github.com/Commando-X/vuln-bank.git
-cd vuln-bank
+git clone https://github.com/Commando-X/Deloitte-Vulnerable-Bank.git
+cd Deloitte-Vulnerable-Bank 
 ```
 
 2. Start the application:
@@ -141,18 +141,18 @@ The application will be available at `http://localhost:5000`
 #### Using Docker Only
 1. Clone the repository:
 ```bash
-git clone https://github.com/Commando-X/vuln-bank.git
-cd vuln-bank
+git clone https://github.com/Commando-X/Deloitte-Vulnerable-Bank.git
+cd Deloitte-Vulnerable-Bank
 ```
 
 2. Build the Docker image:
 ```bash
-docker build -t vuln-bank .
+docker build -t Deloitte-Vulnerable-Bank .
 ```
 
 3. Run the container:
 ```bash
-docker run -p 5000:5000 vuln-bank
+docker run -p 5000:5000 Deloitte-Vulnerable-Bank
 ```
 
 ### Option 2: Local Installation
@@ -166,8 +166,8 @@ docker run -p 5000:5000 vuln-bank
 #### Steps
 1. Clone the repository:
 ```bash
-git clone https://github.com/Commando-X/vuln-bank.git
-cd vuln-bank
+git clone https://github.com/Commando-X/Deloitte-Vulnerable-Bank.git
+cd Deloitte-Vulnerable-Bank
 ```
 
 2. Create and activate a virtual environment (recommended):
@@ -212,7 +212,7 @@ The `.env` file is intentionally included in this repository to facilitate easy 
 
 Current environment variables:
 ```bash
-DB_NAME=vulnerable_bank
+DB_NAME=Deloitte-Vulnerable-Bank
 DB_USER=postgres
 DB_PASSWORD=postgres
 DB_HOST=db  # Change to 'localhost' for local installation
@@ -286,12 +286,12 @@ The application uses PostgreSQL. The database will be automatically initialized 
    * Create it manually with:
 
      ```sql
-     CREATE DATABASE vulnerable_bank;
+     CREATE DATABASE Deloitte-Vulnerable-Bank;
      ```
    * Or run:
 
      ```bash
-     createdb -U postgres -h localhost vulnerable_bank
+     createdb -U postgres -h localhost Deloitte-Vulnerable-Bank
      ```
 
 ## Testing Guide 🎯
@@ -411,7 +411,7 @@ Contributions are welcome! Feel free to:
 
 ## 📝 Blog Write-Up
 
-A detailed walkthrough about this lab and my findings here:  
+<!-- A detailed walkthrough about this lab and my findings here:  
 👇 Read the Blog By [DghostNinja](https://github.com/DghostNinja)
 
 (https://dghostninja.github.io/posts/Vulnerable-Bank-API/)
@@ -420,7 +420,7 @@ A detailed walkthrough about this lab and my findings here:
 
 (https://medium.com/@cyberpreacher_/hacking-vulnerable-bank-api-extensive-d2a0d3bb209e)
 
-> Ethical hacking only. Scope respected. Coffee consumed. ☕
+> Ethical hacking only. Scope respected. Coffee consumed. ☕ -->
 
 
 

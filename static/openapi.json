@@ -1,17 +1,17 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Vulnerable Bank API",
+    "title": "Deloitte Vulnerable Bank API",
     "description": "API documentation for the deliberately vulnerable banking application",
     "version": "1.0.0",
     "contact": {
       "name": "Vulnerable Bank Support",
-      "url": "https://github.com/Commando-X/vuln-bank"
+      "url": "https://github.com/Commando-X/Deloitte-Vulnerable-Bank"
     }
   },
   "servers": [
     {
-      "url": "https://vulnbank.org",
+      "url": "https://deloitteVulnerableBank.org",
       "description": "Controlled Production Server"
     }
   ],
@@ -401,7 +401,7 @@
         }
       }
     },
-    "/sup3r_s3cr3t_admin": {
+    "/super_secret_admin": {
       "get": {
         "tags": ["admin"],
         "summary": "Admin panel",

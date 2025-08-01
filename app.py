@@ -32,7 +32,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "Vulnerable Bank API Documentation",
+        'app_name': "Deloitte Vulnerable Banking API Documentation",
         'validatorUrl': None
     }
 )
@@ -40,7 +40,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 # Hardcoded secret key (CWE-798)
-app.secret_key = "secret123"
+app.secret_key = "Deloitte123"
 
 # Rate limiting configuration
 RATE_LIMIT_WINDOW = 3 * 60 * 60  # 3 hours in seconds
@@ -596,7 +596,7 @@ def request_loan(current_user):
         }), 500
 
 # Hidden admin endpoint (security through obscurity)
-@app.route('/sup3r_s3cr3t_admin')
+@app.route('/super_secret_admin')
 @token_required
 def admin_panel(current_user):
     if not current_user['is_admin']:
@@ -1483,7 +1483,7 @@ def get_payment_history(current_user):
             SELECT 
                 bp.*,
                 b.name as biller_name,
-                bc.name as category_name,
+                bc.name as category_name, 
                 vc.card_number
             FROM bill_payments bp
             JOIN billers b ON bp.biller_id = b.id
