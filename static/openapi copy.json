@@ -5,9 +5,16 @@
     "description": "API documentation for the deliberately vulnerable banking application",
     "version": "1.0.0",
     "contact": {
-      "name": "Vulnerable Bank Support"
+      "name": "Vulnerable Bank Support",
+      "url": "https://github.com/sefiamor/Deloitte-Vulnerable-Bank"
     }
   },
+  "servers": [
+    {
+      "url": "https://deloitteVulnerableBank.org",
+      "description": "Controlled Production Server"
+    }
+  ],
   "tags": [
     {
       "name": "authentication",

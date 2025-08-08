@@ -646,6 +646,12 @@
                           scope="col"
                           class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
                         >
+                          To Account
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
+                        >
                           Type
                         </th>
                         <th
@@ -754,13 +760,37 @@
                           scope="col"
                           class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
                         >
-                          Date
+                          Category
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
+                        >
+                          Description
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
+                        >
+                          Payment Method
                         </th>
                         <th
                           scope="col"
                           class="px-6 py-3 text-right text-xs font-medium text-brand-muted uppercase tracking-wider"
                         >
                           Amount
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
+                        >
+                          Date
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-xs font-medium text-brand-muted uppercase tracking-wider"
+                        >
+                          Status
                         </th>
                       </tr>
                     </thead>
@@ -1073,9 +1103,7 @@
             <p><strong>Card Number:</strong> ${card.card_number}</p>
             <p><strong>CVV:</strong> ${card.cvv}</p>
             <p><strong>Expires:</strong> ${card.expiry_date}</p>
-            <p><strong>Limit:</strong> $${parseFloat(card.card_limit).toFixed(
-              2
-            )}</p>
+            <p><strong>Limit:</strong> $${parseFloat(card.limit).toFixed(2)}</p>
             <p><strong>Type:</strong> <span class="capitalize">${
               card.card_type
             }</span></p>
@@ -1098,7 +1126,8 @@
        */
       function logout() {
         // Redirect to the logout route
-        window.location.href = "/logout";
+        localStorage.setItem("jwt_token", "");
+        window.location.href = "/login";
       }
 
       // --- Data Fetching and Rendering ---
@@ -1108,10 +1137,18 @@
        */
       async function fetchTransactions() {
         const tbody = document.getElementById("transaction-table-body");
+        const accountNumber =
+          document.getElementById("account-number").textContent;
         try {
-          const response = await fetch("/get_transactions");
+          const response = await fetch(`/transactions/${accountNumber}`, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+            },
+          });
           if (!response.ok) throw new Error("Failed to fetch transactions");
-          const transactions = await response.json();
+          const rawData = await response.text();
+          const parseData = JSON.parse(rawData);
+          const transactions = parseData?.transactions;
 
           tbody.innerHTML = ""; // Clear loading state
           if (transactions.length === 0) {
@@ -1129,8 +1166,19 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${
                       tx.description
                     }</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-muted">${
-                      tx.date
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-muted">${new Date(
+                      tx.timestamp
+                    ).toLocaleString("en-US", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-muted capitalize">${
+                      tx.to_account
                     }</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-muted capitalize">${
                       tx.type
@@ -1154,9 +1202,14 @@
       async function fetchVirtualCards() {
         const container = document.getElementById("virtual-cards-list");
         try {
-          const response = await fetch("/get_virtual_cards");
+          const response = await fetch("/api/virtual-cards", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+            },
+          });
           if (!response.ok) throw new Error("Failed to fetch virtual cards");
-          const cards = await response.json();
+          const responseData = await response.json();
+          const cards = responseData.cards;
 
           container.innerHTML = ""; // Clear loading state
           if (cards.length === 0) {
@@ -1165,13 +1218,13 @@
             return;
           }
 
-          cards.forEach((card) => {
+          cards?.forEach((card) => {
             const cardEl = document.createElement("div");
             cardEl.className =
               "bg-gradient-to-br from-lime-500 to-green-600 p-6 rounded-xl shadow-lg text-white relative cursor-pointer hover:scale-105 transition-transform";
             cardEl.innerHTML = `
                     <div class="flex justify-between items-start">
-                        <span class="font-bold text-lg">Secure Bank</span>
+                        <span class="font-bold text-lg">Deloitte Vulnerable Bank</span>
                         <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H7a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
                     </div>
                     <div class="mt-8 font-mono text-xl tracking-widest">${card.card_number}</div>
@@ -1202,9 +1255,14 @@
       async function fetchBillPayments() {
         const tbody = document.getElementById("bill-payments-table-body");
         try {
-          const response = await fetch("/get_bill_payments");
+          const response = await fetch("/api/bill-payments/history", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+            },
+          });
           if (!response.ok) throw new Error("Failed to fetch bill payments");
-          const payments = await response.json();
+          const rawData = await response.json();
+          const payments = rawData?.payments;
 
           tbody.innerHTML = ""; // Clear loading state
           if (payments.length === 0) {
@@ -1219,12 +1277,33 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${
                       p.biller_name
                     }</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-muted">${
-                      p.date
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${
+                      p.category_name
+                    }</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${
+                      p.description
+                    }</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${
+                      p.payment_method
                     }</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-white text-right">-$${parseFloat(
                       p.amount
                     ).toFixed(2)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-brand-muted">
+
+                      ${new Date(p.created_at).toLocaleString("en-US", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${
+                      p.status
+                    }</td>
+
                 `;
             tbody.appendChild(row);
           });
@@ -1234,7 +1313,6 @@
             '<tr><td colspan="3" class="px-6 py-4 text-center text-red-400">Could not load payment history.</td></tr>';
         }
       }
-
       /**
        * Loads necessary data when a section becomes active.
        * @param {string} sectionId The ID of the section to load data for.
@@ -1259,8 +1337,13 @@
       async function loadBillCategories() {
         const categorySelect = document.getElementById("billCategory");
         try {
-          const response = await fetch("/get_bill_categories");
-          const categories = await response.json();
+          const response = await fetch("/api/bill-categories", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+            },
+          });
+          const rawData = await response.json();
+          const categories = rawData?.categories;
           categorySelect.innerHTML =
             '<option value="">Select Category</option>'; // Reset
           categories.forEach((cat) => {
@@ -1283,8 +1366,16 @@
           return;
         }
         try {
-          const response = await fetch(`/get_billers/${categoryId}`);
-          const billers = await response.json();
+          const response = await fetch(
+            `/api/billers/by-category/${categoryId}`,
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+              },
+            }
+          );
+          const rawData = await response.json();
+          const billers = rawData?.billers;
           billerSelect.innerHTML = '<option value="">Select Biller</option>'; // Reset
           billers.forEach((b) => {
             const option = new Option(b.name, b.id);
@@ -1307,9 +1398,14 @@
           cardSelectionDiv.style.display = "block";
           cardSelect.required = true;
           // Fetch user's virtual cards to populate the dropdown
-          fetch("/get_virtual_cards")
+          fetch("/api/virtual-cards", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+            },
+          })
             .then((res) => res.json())
-            .then((cards) => {
+            .then((rawData) => {
+              const cards = rawData.cards;
               cardSelect.innerHTML = '<option value="">Select Card</option>';
               cards.forEach((card) => {
                 const option = new Option(card.card_number, card.id);
@@ -1391,9 +1487,12 @@
           const data = Object.fromEntries(formData.entries());
 
           try {
-            const response = await fetch("/create_virtual_card", {
+            const response = await fetch("/api/virtual-cards/create", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify(data),
             });
             const result = await response.json();
@@ -1409,6 +1508,7 @@
             }
           } catch (error) {
             showMessage(`<strong>Error:</strong> ${error.message}`, "error");
+            console.log(error);
           }
         });
 
@@ -1420,9 +1520,12 @@
           const data = Object.fromEntries(formData.entries());
 
           try {
-            const response = await fetch("/pay_bill", {
+            const response = await fetch("/api/bill-payments/create", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify(data),
             });
             const result = await response.json();
