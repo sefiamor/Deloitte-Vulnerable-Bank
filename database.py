@@ -7,13 +7,21 @@ import time
 # Vulnerable database configuration
 # CWE-259: Use of Hard-coded Password
 # CWE-798: Use of Hard-coded Credentials
+# DB_CONFIG = {
+#     'dbname': os.getenv('DB_NAME', 'Deloitte-Vulnerable-Bank'),
+#     'user': os.getenv('DB_USER', 'postgres'),
+#     'password': os.getenv('DB_PASSWORD', 'postgres'),  # Hardcoded password in default value
+#     'host': os.getenv('DB_HOST', 'localhost'),
+#     'port': os.getenv('DB_PORT', '5432')
+# }
 DB_CONFIG = {
-    'dbname': os.getenv('DB_NAME', 'Deloitte-Vulnerable-Bank'),
-    'user': os.getenv('DB_USER', 'postgres'),
-    'password': os.getenv('DB_PASSWORD', 'postgres'),  # Hardcoded password in default value
-    'host': os.getenv('DB_HOST', 'localhost'),
+    'dbname': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'host': os.getenv('DB_HOST'),
     'port': os.getenv('DB_PORT', '5432')
 }
+
 
 # Create a connection pool
 connection_pool = None
@@ -259,3 +267,7 @@ def execute_transaction(queries_and_params):
         raise e
     finally:
         return_connection(conn)
+        
+if __name__ == "__main__":
+    init_connection_pool()
+    init_db()

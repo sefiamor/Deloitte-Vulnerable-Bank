@@ -18,6 +18,10 @@ COPY . .
 # Ensure uploads directory exists and has proper permissions
 RUN chmod 777 static/uploads
 
-EXPOSE 5000
+EXPOSE 8080
 
-CMD ["python", "app.py"]
+# CMD ["python", "app.py"]
+# CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
+# Run with Gunicorn (Cloud Run will set $PORT)
+
+CMD python database.py && exec gunicorn --bind :$PORT app:app --workers 2 --threads 4 --timeout 0
